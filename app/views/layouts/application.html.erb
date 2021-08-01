@@ -10,10 +10,12 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   
-  <body>
-    <%= render 'layouts/messages'%>
+  <body class = "d-flex flex-column">
     <%= render 'layouts/navbar'%>
-    <%= yield %>
+    <div id = "page-content">
+      <%= render 'layouts/messages'%>
+      <%= yield %>
+    </div>
   </body>
 </html>
 
