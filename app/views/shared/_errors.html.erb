@@ -1,9 +1,9 @@
-<% if @article.errors.any?%>
+<% if err.errors.any?%>
     <!-- The first time we dont have @article which can cause error fixed by add @article in new action-->
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <h4 class="alert-heading"> Following errors prevented the article from saving </h4>
+        <h4 class="alert-heading"> Following errors prevented the <%= err.class.name.downcase%> from saving </h4>
         <ul>
-            <% @article.errors.full_messages.each do |msg|%>
+            <% err.errors.full_messages.each do |msg|%>
                 <li><%= msg%></li>
             <%end%>
         </ul>
