@@ -11,4 +11,11 @@ class ApplicationController < ActionController::Base
         # change current_user to bool by adding !! 
         !!current_user
     end 
+
+    def require_user 
+        if !logged_in?
+            flash[:notice] = "You must login to perfrom the action"
+            redirect_to login_path 
+        end 
+    end 
 end

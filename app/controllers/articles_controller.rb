@@ -2,6 +2,9 @@ class ArticlesController < ApplicationController
     
     # perform set_article before doing the methods 
     before_action :set_article, only: [:show, :edit, :update, :destroy]
+    before_action :require_user, except: [:show, :index]
+    # the method must be after checking that the user is logged in -> require_user
+    before_action :require_same_user, only: [:edit, :update, :destroy] 
 
     def index 
         @articles = Article.paginate(page: params[:page], per_page: 4)
@@ -55,5 +58,12 @@ class ArticlesController < ApplicationController
 
     def article_params 
         params.require(:article).permit(:title, :description)
+    end 
+
+    def require_same_user 
+        if current_user != @article.user 
+            flash[:alert] = "You can only edit/delete your own article"
+            redirect_to @article 
+        end 
     end 
 end 
