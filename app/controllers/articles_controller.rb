@@ -20,7 +20,7 @@ class ArticlesController < ApplicationController
 
     def create
         @article = Article.new(article_params)
-        @article.user = User.first
+        @article.user = current_user
         # as soon as we save the article, it has an id associate with it 
         if @article.save 
             # flash heper to display the message
