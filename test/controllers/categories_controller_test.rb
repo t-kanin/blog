@@ -1,4 +1,6 @@
 require "test_helper"
+#functional test is the test of actions in the controller
+#to run controller test we can do rails test 'path' -> test/controllers
 
 class CategoriesControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -15,13 +17,16 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should create category" do
-  #   assert_difference('Category.count') do
-  #     post categories_url, params: { category: {  } }
-  #   end
-
-  #   assert_redirected_to category_url(Category.last)
-  # end
+  test "should create category" do
+    # we want to see a change in the number of category when the category is created
+    # we want to see the different by one 
+    assert_difference('Category.count', 1) do
+      # post request with the specific params
+      post categories_url, params: { category: { name: "Travel" } }
+    end
+    # redirect to the last category
+    assert_redirected_to category_url(Category.last)
+  end
 
   test "should show category" do
     get category_url(@category)
