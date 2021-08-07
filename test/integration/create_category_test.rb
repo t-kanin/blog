@@ -3,6 +3,12 @@ require "test_helper"
 #integraion is the test of the flow of application, to see that the overall functions are working together
 
 class CreateCategoryTest < ActionDispatch::IntegrationTest
+
+  setup do
+    @admin_user = User.create(username: "admin", email: "admin@example.com", password: "adminadmin", admin: true)
+    sign_in_as(@admin_user)
+  end
+
   test "get new category form and create category" do
     get "/categories/new"
     assert_response :success
