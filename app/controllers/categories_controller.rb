@@ -3,6 +3,7 @@ class CategoriesController < ApplicationController
     before_action :require_admin, except: [:index, :show]
 
     def show 
+        @articles = @category.articles.paginate(page: params[:page], per_page: 4)
     end 
 
     def new 
