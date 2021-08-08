@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController 
-    before_action :set_article, only: [:show]
+    before_action :set_article, only: [:show, :edit, :update]
     before_action :require_admin, except: [:index, :show]
 
     def show 
@@ -23,7 +23,19 @@ class CategoriesController < ApplicationController
             render 'new'
         end 
     end 
+
+    def edit 
+    end 
     
+    def update 
+        if @category.update(category_params)
+            flash[:notice] = "The category name has been updated"
+            redirect_to @category
+        else 
+            render 'edit' 
+        end 
+    end 
+
     private     
     def set_article 
         @category = Category.find(params[:id])
